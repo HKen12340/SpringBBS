@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.JavaSystem.SpringBBS.repository.BBSMapper">
+	<select id="AllThread" resultType="com.JavaSystem.SpringBBS.entity.BBSThread">
+		SELECT id,title FROM thread
+	</select>
+	
+	<select id="AllMessage" resultType="com.JavaSystem.SpringBBS.entity.BBSMessage">
+		SELECT * FROM Message
+	</select>
+	
+	<select id="AllUser" resultType="com.JavaSystem.SpringBBS.entity.BBSUser">
+		SELECT * FROM bbsuser
+	</select>
+</mapper>
