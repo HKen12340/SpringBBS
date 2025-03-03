@@ -18,6 +18,8 @@ public class SpringBbsApplication {
 		SpringApplication.run(SpringBbsApplication.class, args)
 		.getBean(SpringBbsApplication.class).exe();
 	}
+	
+
 
 	private final BBSMapper mapper;
 	
