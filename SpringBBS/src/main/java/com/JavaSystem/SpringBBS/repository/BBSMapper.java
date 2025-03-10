@@ -7,10 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 import com.JavaSystem.SpringBBS.entity.BBSMessage;
 import com.JavaSystem.SpringBBS.entity.BBSThread;
 import com.JavaSystem.SpringBBS.entity.BBSUser;
+import com.JavaSystem.SpringBBS.form.UserForm;
 
 @Mapper
 public interface BBSMapper {
 	List<BBSThread> AllThread();
 	List<BBSUser> AllUser();
-	List<BBSMessage> AllMessage();	
+	List<BBSMessage> AllMessage();
+	void RegistUser(UserForm f);
+	BBSUser SeachUser(UserForm f);
 }

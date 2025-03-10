@@ -3,7 +3,7 @@ package com.JavaSystem.SpringBBS.form;
 import lombok.Data;
 
 @Data
-public class LoginForm {
+public class UserForm {
 	private String username;
 	private String password;
 }

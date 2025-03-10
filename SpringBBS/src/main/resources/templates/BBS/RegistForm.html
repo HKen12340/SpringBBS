@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン画面</title>
+    <title>ユーザー登録画面</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div class="login-container">
-		<h2>ログイン</h2>
-		<a th:href="@{/regist}">ユーザ登録</a>
-        <form th:action="@{/login}" method="post">
+		<h2>ユーザ登録</h2>
+        <form th:action="@{/regist}" method="post">
             <input type="text" name="username" class="login-input" placeholder="Username">
             <input type="password" name="password" class="login-input" placeholder="Password">
-            <button type="submit" class="login-btn">Login</button>
+            <button type="submit" class="login-btn">Regist</button>
         </form>
     </div>
 </body>

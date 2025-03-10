@@ -12,4 +12,12 @@
 	<select id="AllUser" resultType="com.JavaSystem.SpringBBS.entity.BBSUser">
 		SELECT * FROM bbsuser
 	</select>
+	
+	<select id="SeachUser" resultType="com.JavaSystem.SpringBBS.entity.BBSUser">
+		SELECT * FROM bbsuser WHERE name = #{username}; 
+	</select>
+	
+	<insert id="RegistUser">
+		INSERT INTO bbsuser(name,password) VALUES(#{username},#{password});
+	</insert>
 </mapper>
