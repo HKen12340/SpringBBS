@@ -14,6 +14,8 @@ public interface BBSMapper {
 	List<BBSThread> AllThread();
 	List<BBSUser> AllUser();
 	List<BBSMessage> AllMessage();
+	
 	void RegistUser(UserForm f);
 	BBSUser SeachUser(UserForm f);
+	void CreateThread(String title,Integer user_id);
 }

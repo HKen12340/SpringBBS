@@ -28,7 +28,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 		BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();		
 		
 		//ユーザ名をもとにユーザ情報検索
-		BBSUser user = mapper.SeachUser(form);
+		BBSUser user = mapper.SeachUser(form);		
 		
 		//ユーザが見つからない場合
 		if(Objects.isNull(user)) return false;
@@ -37,13 +37,14 @@ public class UserAuthServiceImpl implements UserAuthService {
 		if(bcpe.matches(form.getPassword(), user.getPassword())) {
 			userSession.setUsername(form.getUsername());
 			userSession.setPassword(form.getPassword());
+			userSession.setId(user.getId());
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean LoginSessionCheck() {		
+	public boolean LoginSessionCheck() {
 		
 		//セッションにユーザ情報が登録されているか
 		if (Objects.isNull(userSession.getUsername()) ||
@@ -55,7 +56,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 		userForm.setUsername(userSession.getUsername());
 		userForm.setPassword(userSession.getPassword());
 		
-		//セッション情報はDBに登録されているものと合致するか
+		//セッション情報はDBに登録されているものと合致していないか
 		if(!UserNamePassCheck(userForm)) {
 			return false;
 		}

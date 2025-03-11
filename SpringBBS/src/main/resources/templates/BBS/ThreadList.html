@@ -1,5 +1,22 @@
 <!DOCTYPE html>
-<html>
-	<h1>TEST</h1>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h1>SpringBBS</h1>
 	<a th:href="@{/logout}">ログアウト</a>
+	<a th:href="@{/NewThread}">スレッド作成</a>
+	<table>
+		<tr th:each="thread : ${threads}">
+			<td th:text="${thread.title}"></td>						
+		</tr>
+	</table>
+</body>
+
 </html>

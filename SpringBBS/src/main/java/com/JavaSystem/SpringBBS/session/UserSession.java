@@ -8,6 +8,7 @@ import org.springframework.web.context.annotation.SessionScope;
 public class UserSession {
 	private String username;
 	private String password;
+	private Integer id;
 	
 	public String getUsername() {
 		return username;
@@ -15,6 +16,10 @@ public class UserSession {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 	
 	public void setUsername(String username) {
@@ -25,11 +30,19 @@ public class UserSession {
 		this.password = password;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void deleteUsername() {
 		this.username = null;
 	}
 	
 	public void deletePassword() {
 		this.password = null;
+	}
+	
+	public void deleteId() {
+		this.id =  null;
 	}
 }
