@@ -25,4 +25,8 @@
 		INSERT INTO Thread(title,create_userid,created_at,updated_at) 
 		VALUES(#{title},#{user_id},CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
 	</insert>
+	
+	<select id="GetMessages" resultType="com.JavaSystem.SpringBBS.entity.BBSMessage">
+		SELECT * FROM Message WHERE thread_id = #{id};
+	</select>
 </mapper>

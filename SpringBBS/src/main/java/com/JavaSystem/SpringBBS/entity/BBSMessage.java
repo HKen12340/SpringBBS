@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BBSMessage {
 	private int id;
-	private String meg_txt;
+	private String msg_text;
 	private int replay_id;
 	private LocalDateTime created_at;
 	private int thread_id;

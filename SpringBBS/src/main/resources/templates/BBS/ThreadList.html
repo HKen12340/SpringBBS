@@ -13,8 +13,8 @@
 	<a th:href="@{/logout}">ログアウト</a>
 	<a th:href="@{/NewThread}">スレッド作成</a>
 	<table>
-		<tr th:each="thread : ${threads}">
-			<td th:text="${thread.title}"></td>						
+		<tr th:each="thread : ${threads}">			
+			<a th:href="@{/Thread/{id}(id=${thread.id})}"><p th:text="${thread.title}"></p></a>						
 		</tr>
 	</table>
 </body>

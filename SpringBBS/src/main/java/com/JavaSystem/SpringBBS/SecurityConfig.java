@@ -14,13 +14,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(customizer -> customizer
-                //.requestMatchers("*").authenticated() // /api/authは認証が必要なページ
-                .requestMatchers("*").permitAll() // /以下はすべて許可
-                .anyRequest().denyAll()); // その他のリクエストはすべて拒否
+                //.requestMatchers("**").authenticated() // /api/authは認証が必要なページ
+                .requestMatchers("**").permitAll()); // /以下はすべて許可
+                //.anyRequest().denyAll()); // その他のリクエストはすべて拒否
         return http.build();
     }
-
-    
 
 
 }
