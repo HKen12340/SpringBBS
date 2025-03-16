@@ -8,12 +8,17 @@
 </head>
 
 <body>
-    <h1>SpringBBSスレッド</h1>
-	
+    <h1>SpringBBSスレッド</h1>	
 	<table>
 		<tr th:each="msg : ${msgs}">
 			<td th:text="${msg.msg_text}"></td>
 		</tr>
 	</table>
+	<form th:action="@{/SendMeg}" method="post">		
+		<input type="hidden" name="thread_id" th:value="${thread_id}"/>
+		<input type="hidden" name="user_id" th:value="${user_id}"/>
+		<textarea name="message" ></textarea>
+		<input type="submit" value="送信" />
+	</form>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class AuthContoroller {
 	@GetMapping("/logout")
 	public String Logout() {
 		userAuthService.UserNamePassDelete();
-		return "BBS/login";
+		return "redirect:/login";
 	}
 
 	@GetMapping("/regist")

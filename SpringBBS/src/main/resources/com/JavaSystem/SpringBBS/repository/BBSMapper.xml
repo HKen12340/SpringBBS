@@ -29,4 +29,9 @@
 	<select id="GetMessages" resultType="com.JavaSystem.SpringBBS.entity.BBSMessage">
 		SELECT * FROM Message WHERE thread_id = #{id};
 	</select>
+	
+	<insert id="PostMessage">
+		INSERT INTO Message(thread_id,user_id,msg_text,created_at) 
+		VALUES(#{thread_id},#{user_id},#{message},CURRENT_TIMESTAMP);
+	</insert>
 </mapper>
