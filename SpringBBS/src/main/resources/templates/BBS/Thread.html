@@ -8,10 +8,12 @@
 </head>
 
 <body>
-    <h1>SpringBBSスレッド</h1>	
+    <h1 th:text="${thread.title}"></h1>	
 	<table>
 		<tr th:each="msg : ${msgs}">
 			<td th:text="${msg.msg_text}"></td>
+			<td th:text="${msg.bbsuser.name}"></td>
+			<td th:text="${msg.created_at}"></td>
 		</tr>
 	</table>
 	<form th:action="@{/SendMeg}" method="post">		

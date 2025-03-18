@@ -12,14 +12,13 @@ import com.JavaSystem.SpringBBS.form.UserForm;
 
 @Mapper
 public interface BBSMapper {
-	List<BBSThread> AllThread();
-	
+	List<BBSThread> AllThread();	
 	List<BBSUser> AllUser();
 	List<BBSMessage> AllMessage();
-	
 	void RegistUser(UserForm form);
 	BBSUser SeachUser(UserForm form);
 	void CreateThread(String title,Integer user_id);
 	List<BBSMessage> GetMessages(int id); 
 	void PostMessage(MessageForm form);
+	BBSThread ThreadSelectById(Integer id);
 }

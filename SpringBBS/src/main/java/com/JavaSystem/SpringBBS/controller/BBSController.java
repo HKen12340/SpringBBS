@@ -41,6 +41,7 @@ public class BBSController {
 		if(!userAuthService.LoginSessionCheck()) {
 			return "redirect:/login";	
 		}
+		model.addAttribute("thread",bbsMapperService.ThreadSelectById(id));
 		model.addAttribute("msgs",bbsMapperService.GetMessages(id));
 		model.addAttribute("thread_id",id);
 		model.addAttribute("user_id",userSession.getId());

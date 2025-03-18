@@ -27,8 +27,6 @@ public class BBSMapperServiceImpl implements BBSMapperService {
 	
 	//スレッド名が重複した場合にfalseを返す ※追加予定
 	public boolean ThreadCreate(ThreadForm form) {
-		System.out.println("form.getTitle()：" + form.getTitle());
-		System.out.println("userSession.getId()：" + userSession.getId());
 		String title = form.getTitle();
 		mapper.CreateThread(title,userSession.getId());
 		return true;
@@ -46,6 +44,8 @@ public class BBSMapperServiceImpl implements BBSMapperService {
 		mapper.PostMessage(form);
 	}
 	
-	
+	public BBSThread ThreadSelectById(int id) {		
+		 return mapper.ThreadSelectById(id);
+	}
 	
 }

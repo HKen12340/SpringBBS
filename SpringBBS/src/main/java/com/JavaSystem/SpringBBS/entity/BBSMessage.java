@@ -16,6 +16,7 @@ public class BBSMessage {
 	private LocalDateTime created_at;
 	private int thread_id;
 	private int user_id;
+	private BBSUser bbsuser;
 //	private List<BBSThread> thread_id;
 //	private List<BBSUser> user_id;
 }

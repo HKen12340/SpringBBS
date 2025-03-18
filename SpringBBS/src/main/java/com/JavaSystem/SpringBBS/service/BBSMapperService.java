@@ -12,4 +12,5 @@ public interface BBSMapperService {
 	List<BBSThread> ShowIndex();
 	List<BBSMessage> GetMessages(int id);
 	void PostMessage(MessageForm form);
+	BBSThread ThreadSelectById(int id);
 }

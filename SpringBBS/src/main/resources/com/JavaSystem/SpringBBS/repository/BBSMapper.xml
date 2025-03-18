@@ -26,12 +26,33 @@
 		VALUES(#{title},#{user_id},CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
 	</insert>
 	
-	<select id="GetMessages" resultType="com.JavaSystem.SpringBBS.entity.BBSMessage">
-		SELECT * FROM Message WHERE thread_id = #{id};
+	<select id="ThreadSelectById" resultType="com.JavaSystem.SpringBBS.entity.BBSThread">
+		SELECT * FROM thread WHERE id = #{id};
 	</select>
 	
 	<insert id="PostMessage">
 		INSERT INTO Message(thread_id,user_id,msg_text,created_at) 
 		VALUES(#{thread_id},#{user_id},#{message},CURRENT_TIMESTAMP);
 	</insert>
+	
+	<resultMap id="MessageWithBBSUser" type="com.JavaSystem.SpringBBS.entity.BBSMessage">
+		<id property="id" column="id" />
+		<result property="thread_id" column="thread_id" />
+		<result property="user_id" column="user_id" />
+		<result property="msg_text" column="msg_text" />
+		<result property="replay_id" column="replay_id" />
+		<result property="created_at" column="created_at" />		
+		<association property="bbsuser" javaType="com.JavaSystem.SpringBBS.entity.BBSUser">
+			<result property="name" column="user_name" />
+		</association>
+	</resultMap>
+	
+	<select id="GetMessages" resultMap="MessageWithBBSUser">
+		SELECT 
+			m.msg_text,m.thread_id,m.replay_id,
+			m.created_at,u.name as user_name 
+		 FROM Message m 
+		 INNER JOIN bbsuser u ON m.user_id = u.id 		 
+		 WHERE thread_id = #{id};
+	</select>
 </mapper>
