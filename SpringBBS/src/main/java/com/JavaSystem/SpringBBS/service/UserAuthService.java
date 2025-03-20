@@ -7,4 +7,5 @@ public interface UserAuthService {
 	public boolean LoginSessionCheck();
 	public boolean UserDataRegist(UserForm f);
 	public void UserNamePassDelete();
+	public boolean IsIdMatchWithUser(int id);
 }

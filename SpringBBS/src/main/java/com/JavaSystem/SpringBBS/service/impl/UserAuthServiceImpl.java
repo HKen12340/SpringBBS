@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.JavaSystem.SpringBBS.entity.BBSThread;
 import com.JavaSystem.SpringBBS.entity.BBSUser;
 import com.JavaSystem.SpringBBS.form.UserForm;
 import com.JavaSystem.SpringBBS.repository.BBSMapper;
@@ -58,6 +59,16 @@ public class UserAuthServiceImpl implements UserAuthService {
 		
 		//セッション情報はDBに登録されているものと合致していないか
 		if(!UserNamePassCheck(userForm)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	//選択したスレッドの作成者か判定する
+	public boolean IsIdMatchWithUser(int id) {
+		BBSThread thread = mapper.IsIdMatchWithUser(id);
+		if(userSession.getId() != thread.getCreate_userid()) {
 			return false;
 		}
 		

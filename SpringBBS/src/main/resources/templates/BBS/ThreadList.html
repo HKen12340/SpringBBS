@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン画面</title>
+    <title>スレッド一覧</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -13,8 +13,12 @@
 	<a th:href="@{/logout}">ログアウト</a>
 	<a th:href="@{/NewThread}">スレッド作成</a>
 	<table>
-		<tr th:each="thread : ${threads}">			
-			<a th:href="@{/Thread/{id}(id=${thread.id})}"><p th:text="${thread.title}"></p></a>						
+		<tr th:each="thread : ${threads}">						
+			<td><a th:href="@{/Thread/{id}(id=${thread.id})}"><p th:text="${thread.title}"></p></a></td>
+			<td th:if="${thread.create_userid eq user_id}">
+				<a th:href="@{/ThreadEdit/{thread_id}(thread_id=${thread.id})}">編集</a> 
+				<a th:href="@{/DeleteThread/{thread_id}(thread_id=${thread.id})}">削除</a>
+			</td>
 		</tr>
 	</table>
 </body>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.JavaSystem.SpringBBS.repository.BBSMapper">
 	<select id="AllThread" resultType="com.JavaSystem.SpringBBS.entity.BBSThread">
-		SELECT id,title FROM thread
+		SELECT * FROM thread
 	</select>
 	
 	<select id="AllMessage" resultType="com.JavaSystem.SpringBBS.entity.BBSMessage">
@@ -21,6 +21,10 @@
 		INSERT INTO bbsuser(name,password) VALUES(#{username},#{password});
 	</insert>
 	
+	<select id="IsIdMatchWithUser" resultType="com.JavaSystem.SpringBBS.entity.BBSThread">
+		SELECT * FROM thread WHERE create_userId = #{id};
+	</select>
+	
 	<insert id="CreateThread">
 		INSERT INTO Thread(title,create_userid,created_at,updated_at) 
 		VALUES(#{title},#{user_id},CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
@@ -29,6 +33,15 @@
 	<select id="ThreadSelectById" resultType="com.JavaSystem.SpringBBS.entity.BBSThread">
 		SELECT * FROM thread WHERE id = #{id};
 	</select>
+	
+	<update id="ThreadUpdate">
+		UPDATE thread SET title = #{title} WHERE id = #{id};
+	</update>
+	
+	<delete id="DeleteThread">
+		DELETE FROM Message WHERE thread_id = #{id};
+		DELETE FROM thread WHERE id = #{id};
+	</delete>
 	
 	<insert id="PostMessage">
 		INSERT INTO Message(thread_id,user_id,msg_text,created_at) 

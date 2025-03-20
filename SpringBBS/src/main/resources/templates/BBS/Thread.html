@@ -13,7 +13,7 @@
 		<tr th:each="msg : ${msgs}">
 			<td th:text="${msg.msg_text}"></td>
 			<td th:text="${msg.bbsuser.name}"></td>
-			<td th:text="${msg.created_at}"></td>
+			<td th:text="${msg.created_at}"></td>			
 		</tr>
 	</table>
 	<form th:action="@{/SendMeg}" method="post">		

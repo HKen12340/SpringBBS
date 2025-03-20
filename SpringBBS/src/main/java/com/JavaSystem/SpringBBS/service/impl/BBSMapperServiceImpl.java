@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.JavaSystem.SpringBBS.entity.BBSMessage;
 import com.JavaSystem.SpringBBS.entity.BBSThread;
 import com.JavaSystem.SpringBBS.form.MessageForm;
+import com.JavaSystem.SpringBBS.form.ThreadEditForm;
 import com.JavaSystem.SpringBBS.form.ThreadForm;
 import com.JavaSystem.SpringBBS.repository.BBSMapper;
 import com.JavaSystem.SpringBBS.service.BBSMapperService;
@@ -33,6 +34,7 @@ public class BBSMapperServiceImpl implements BBSMapperService {
 	}
 	
 	public List<BBSThread> ShowIndex() {
+		System.out.println(mapper.AllThread());
 		return mapper.AllThread(); 
 	}
 
@@ -46,6 +48,14 @@ public class BBSMapperServiceImpl implements BBSMapperService {
 	
 	public BBSThread ThreadSelectById(int id) {		
 		 return mapper.ThreadSelectById(id);
+	}
+	
+	public void ThreadUpdate(ThreadEditForm form) {
+		mapper.ThreadUpdate(form);
+	}
+	
+	public void DeleteThread(int id) {
+		mapper.DeleteThread(id);
 	}
 	
 }

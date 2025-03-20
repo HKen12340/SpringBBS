@@ -8,6 +8,7 @@ import com.JavaSystem.SpringBBS.entity.BBSMessage;
 import com.JavaSystem.SpringBBS.entity.BBSThread;
 import com.JavaSystem.SpringBBS.entity.BBSUser;
 import com.JavaSystem.SpringBBS.form.MessageForm;
+import com.JavaSystem.SpringBBS.form.ThreadEditForm;
 import com.JavaSystem.SpringBBS.form.UserForm;
 
 @Mapper
@@ -21,4 +22,7 @@ public interface BBSMapper {
 	List<BBSMessage> GetMessages(int id); 
 	void PostMessage(MessageForm form);
 	BBSThread ThreadSelectById(Integer id);
+	void ThreadUpdate(ThreadEditForm form);
+	void DeleteThread(int id);
+	BBSThread IsIdMatchWithUser(int id);
 }

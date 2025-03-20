@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>メッセージ編集</h1>
+<form th:action="@{/ThreadEdit}" method="POST">
+	<input type="text" name="title" th:value="${thread.title}"/>
+	<input type="hidden" name="id" th:value="${thread.id}" />
+	<input type="submit">
+</form>
+</body>
+</html>
