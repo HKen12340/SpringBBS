@@ -12,7 +12,13 @@
     <div class="login-container">
 		<h2>ログイン</h2>
 		<a th:href="@{/regist}">ユーザ登録</a>
-        <form th:action="@{/login}" method="post">
+		<p th:if="${errMessage}" th:text="${errMessage}">エラーメッセージ</p>
+        <form th:action="@{/login}" method="post" th:object="${userForm}">
+			
+			<ul th:if="${#fields.hasErrors('*')}">
+				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+			<p th:text="${userForm}"></p>
             <input type="text" name="username" class="login-input" placeholder="Username">
             <input type="password" name="password" class="login-input" placeholder="Password">
             <button type="submit" class="login-btn">Login</button>

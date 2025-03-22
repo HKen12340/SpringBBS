@@ -11,7 +11,11 @@
 <body>
     <div class="login-container">
 		<h2>ユーザ登録</h2>
-        <form th:action="@{/regist}" method="post">
+        <form th:action="@{/regist}" method="post" th:object="${userForm}">
+			<ul th:if="${#fields.hasErrors('*')}">
+				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+			
             <input type="text" name="username" class="login-input" placeholder="Username">
             <input type="password" name="password" class="login-input" placeholder="Password">
             <button type="submit" class="login-btn">Regist</button>

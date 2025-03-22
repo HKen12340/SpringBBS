@@ -3,9 +3,13 @@ package com.JavaSystem.SpringBBS.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.JavaSystem.SpringBBS.form.MessageForm;
 import com.JavaSystem.SpringBBS.form.ThreadEditForm;
@@ -26,6 +30,26 @@ public class BBSController {
 	
 	@Autowired
 	private UserSession userSession;
+	
+	/** form-backing beanの初期化 */
+	
+	@ModelAttribute
+	public ThreadForm setUpThreadForm(Model model) {
+		model.addAttribute("thraedForm",new ThreadForm());
+		return new ThreadForm();
+	}
+	
+	@ModelAttribute
+	public ThreadEditForm setUpThreadEditForm(Model model) {
+		model.addAttribute("thraedEditForm",new ThreadEditForm());
+		return new ThreadEditForm();
+	}
+	
+	@ModelAttribute
+	public MessageForm setUpMessageForm(Model model) {
+		model.addAttribute("messageForm",new MessageForm());
+		return new MessageForm();
+	}
 
 	@GetMapping("/ThreadList")
 	public String ThreadList(Model model) {
@@ -60,16 +84,32 @@ public class BBSController {
 	}
 	
 	@PostMapping("/NewThread")
-	public String CreateThread(ThreadForm form) {
+	public String CreateThread(ThreadForm form,@Validated ThreadForm f,
+			BindingResult bindingResult,RedirectAttributes atrributes) {
+		System.out.println(bindingResult.getFieldErrors());
+		
+		if(bindingResult.hasErrors()) {			
+			atrributes.addFlashAttribute("errMessage","タイトルが未入力です");
+			return "redirect:/NewThread";
+		}
+		
 		if(!userAuthService.LoginSessionCheck()) {
 			return "redirect:/login";	
 		}
+		
 		bbsMapperService.ThreadCreate(form);
 		return "redirect:/ThreadList";
 	}
 	
 	@PostMapping("/SendMeg")
-	public String SendMsg(MessageForm form) {
+	public String SendMsg(MessageForm form,@Validated MessageForm f,
+			BindingResult bindingResult,RedirectAttributes attribute) {
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("Validate NG");
+			attribute.addFlashAttribute("errMessage","メッセージが未入力です");
+			return "redirect:/Thread/"+form.getThread_id();
+		}
 		bbsMapperService.PostMessage(form);
 		return "redirect:/Thread/"+form.getThread_id();		
 	}
@@ -86,7 +126,12 @@ public class BBSController {
 	}
 	
 	@PostMapping("/ThreadEdit")
-	public String UpdateThread(ThreadEditForm form) {
+	public String UpdateThread(ThreadEditForm form,@Validated ThreadForm f,
+			BindingResult bindingResult,RedirectAttributes attribute) {
+		if(bindingResult.hasErrors()) {
+			attribute.addFlashAttribute("errMessage","タイトルが未入力です");
+			return "redirect:/ThreadEdit/"+form.getId();
+		}
 		bbsMapperService.ThreadUpdate(form);
 		return "redirect:/ThreadList";
 	}

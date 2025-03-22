@@ -16,7 +16,11 @@
 			<td th:text="${msg.created_at}"></td>			
 		</tr>
 	</table>
-	<form th:action="@{/SendMeg}" method="post">		
+	<p th:if="${errMessage}" th:text="${errMessage}">エラーメッセージ</p>
+	<form th:action="@{/SendMeg}" method="post" th:object="${messageForm}">
+			<ul th:if="${#fields.hasErrors('*')}">
+				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>			
+			</ul>		
 		<input type="hidden" name="thread_id" th:value="${thread_id}"/>
 		<input type="hidden" name="user_id" th:value="${user_id}"/>
 		<textarea name="message" ></textarea>
