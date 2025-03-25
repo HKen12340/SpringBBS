@@ -27,9 +27,16 @@
 	</section>	
 	<div>
 		<section th:each="msg : ${msgs}" class="msg_content">
-			<td th:text="${msg.msg_text}"></td>
-			<td th:text="${msg.bbsuser.name}"></td>
-			<td th:text="${msg.created_at}"></td>			
+			<p style="text-align: right; color: gray;">
+				(<label th:text="${msg.bbsuser.name}"></label>)
+				<label th:text="${msg.created_at.format(T(java.time.format.DateTimeFormatter).
+				ofPattern('yyyy/MM/dd HH:mm:ss'))}"></label>
+			</p>
+			<p>
+				<label th:text="${msg.msg_text}"></label>
+				
+			</p>
+			
 		</section>
 	</div>
 </body>

@@ -39,7 +39,7 @@ public class BBSMapperServiceImpl implements BBSMapperService {
 		return mapper.AllThread(); 
 	}
 
-	public List<BBSMessage> GetMessages(int id) {
+	public List<BBSMessage> GetMessages(int id) {       
 		return mapper.GetMessages(id);
 	}
 	
