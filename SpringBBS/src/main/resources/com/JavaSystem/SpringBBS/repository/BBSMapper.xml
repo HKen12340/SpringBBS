@@ -68,4 +68,13 @@
 		 INNER JOIN bbsuser u ON m.user_id = u.id 		 
 		 WHERE thread_id = #{id};
 	</select>
+	
+	<select id="HasOverlappingUsername" resultType="com.JavaSystem.SpringBBS.entity.BBSUser">
+		SELECT * FROM bbsuser WHERE name = #{name};
+	</select>
+	
+	<select id="HasOverlappingThreadTitle" resultType="com.JavaSystem.SpringBBS.entity.BBSThread">
+		SELECT * FROM thread WHERE title = #{title};
+	</select>
+	
 </mapper>

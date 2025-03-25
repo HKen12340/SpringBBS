@@ -16,4 +16,6 @@ public interface BBSMapperService {
 	BBSThread ThreadSelectById(int id);
 	void ThreadUpdate(ThreadEditForm form);
 	void DeleteThread(int id);
+	boolean HasOverlappingThreadTitle(String title);
+	boolean ThreadTitleEqualUpdateTitle(int id,String title);
 }

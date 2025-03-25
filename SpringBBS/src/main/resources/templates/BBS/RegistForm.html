@@ -18,6 +18,9 @@
 				</div>
 			</ul>
 			
+			<div th:if="${errMessage}" class="error-content">
+				<p th:text="${errMessage}">エラーメッセージ</p>
+			</div>
             <input type="text" name="username" class="login-input" placeholder="Username">
             <input type="password" name="password" class="login-input" placeholder="Password">
             <button type="submit" class="login-btn">Regist</button>

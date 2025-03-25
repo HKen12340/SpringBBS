@@ -1,6 +1,7 @@
 package com.JavaSystem.SpringBBS.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,4 +59,21 @@ public class BBSMapperServiceImpl implements BBSMapperService {
 		mapper.DeleteThread(id);
 	}
 	
+	//スレッドタイトルが重複しているか 重複あり：true 重複なし：false
+	public boolean HasOverlappingThreadTitle(String title) {
+		
+		BBSThread SqlResult = mapper.HasOverlappingThreadTitle(title); 		
+		if(Objects.isNull(SqlResult))return false;
+		
+		return true;
+	}
+	
+	//スレッドタイトルは更新するタイトルと重複しているか 重複あり：true 重複なし：false
+	public boolean ThreadTitleEqualUpdateTitle(int id,String title) {
+		
+		BBSThread SqlResult = mapper.ThreadSelectById(id);
+		if(SqlResult.getTitle().equals(title))return true;
+				
+		return false;
+	}
 }

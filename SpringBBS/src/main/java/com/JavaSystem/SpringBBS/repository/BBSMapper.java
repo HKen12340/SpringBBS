@@ -25,4 +25,6 @@ public interface BBSMapper {
 	void ThreadUpdate(ThreadEditForm form);
 	void DeleteThread(int id);
 	BBSThread IsIdMatchWithUser(int id);
+	BBSUser HasOverlappingUsername(String name);
+	BBSThread HasOverlappingThreadTitle(String title);	
 }

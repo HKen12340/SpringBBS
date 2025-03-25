@@ -36,7 +36,6 @@ public class AuthContoroller {
 	@PostMapping("/login")
 	public String LoginAuth(UserForm form,@Validated UserForm f
 			,BindingResult bindingResult,RedirectAttributes atrributes){
-		System.out.println(bindingResult.getFieldErrors());
 		if(bindingResult.hasErrors()) {	
 			return "BBS/login";
 		}
@@ -44,7 +43,7 @@ public class AuthContoroller {
 		if(userAuthService.UserNamePassCheck(form)){
 			return "redirect:/ThreadList";
 		}
-		
+					
 		atrributes.addFlashAttribute("errMessage","ユーザ名かパスワードが間違っています");
 		return "redirect:/login";
 	}
@@ -62,10 +61,17 @@ public class AuthContoroller {
 	
 	@PostMapping("/regist")
 	public String RegistUserData(UserForm form,@Validated UserForm f,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,RedirectAttributes atrributes) {		
+		
 		if(bindingResult.hasErrors()) {			
 			return "BBS/RegistForm";
 		}
+		
+		if(userAuthService.HasOverlappingUserName(form.getUsername())) {
+			atrributes.addFlashAttribute("errMessage","入力したユーザー名は既に登録されています");
+			return "redirect:/regist";
+		}
+		
 		userAuthService.UserDataRegist(form);
 		return "redirect:/login";
 	}

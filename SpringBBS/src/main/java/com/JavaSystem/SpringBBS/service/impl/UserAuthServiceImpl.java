@@ -24,6 +24,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 	
 	private final BBSMapper mapper;
 	
+	//入力データがDBに登録されているか
 	public boolean UserNamePassCheck(UserForm form) {
 		
 		BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();		
@@ -45,6 +46,16 @@ public class UserAuthServiceImpl implements UserAuthService {
 		return false;
 	}
 	
+	//ユーザー名が重複しているか 重複あり：true 重複なし：false
+	public boolean HasOverlappingUserName(String name){
+		
+		BBSUser SqlResult = mapper.HasOverlappingUsername(name);
+		if(Objects.isNull(SqlResult)) return false;			
+		
+		return true;
+	}
+	
+	//ログイン済みか
 	public boolean LoginSessionCheck() {
 		
 		//セッションにユーザ情報が登録されているか
@@ -75,6 +86,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 		return true;
 	}
 	
+	//ユーザー登録
 	public boolean UserDataRegist(UserForm form) {
 		
 		//パスワードハッシュ化
@@ -92,6 +104,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 		return true;
 	}
 	
+	//セッション情報削除
 	public void UserNamePassDelete() {
 		userSession.deleteUsername();
 		userSession.deletePassword();

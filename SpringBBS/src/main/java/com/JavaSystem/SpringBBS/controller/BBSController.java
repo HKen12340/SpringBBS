@@ -88,14 +88,19 @@ public class BBSController {
 			BindingResult bindingResult,RedirectAttributes atrributes) {
 		System.out.println(bindingResult.getFieldErrors());
 		
+		if(!userAuthService.LoginSessionCheck()) {
+			return "redirect:/login";	
+		}
+		
 		if(bindingResult.hasErrors()) {			
 			atrributes.addFlashAttribute("errMessage","タイトルが未入力です");
 			return "redirect:/NewThread";
 		}
 		
-		if(!userAuthService.LoginSessionCheck()) {
-			return "redirect:/login";	
-		}
+		if(bbsMapperService.HasOverlappingThreadTitle(form.getTitle())) {
+			atrributes.addFlashAttribute("errMessage","入力したタイトルは既に登録されています");
+			return "redirect:/NewThread"; 
+		}		
 		
 		bbsMapperService.ThreadCreate(form);
 		return "redirect:/ThreadList";
@@ -104,6 +109,10 @@ public class BBSController {
 	@PostMapping("/SendMeg")
 	public String SendMsg(MessageForm form,@Validated MessageForm f,
 			BindingResult bindingResult,RedirectAttributes attribute) {
+		
+		if(!userAuthService.LoginSessionCheck()) {
+			return "redirect:/login";	
+		}
 		
 		if(bindingResult.hasErrors()) {
 			System.out.println("Validate NG");
@@ -116,6 +125,11 @@ public class BBSController {
 	
 	@GetMapping("/ThreadEdit/{thread_id}")
 	public String MsgEditForm(@PathVariable(name = "thread_id") Integer id,Model model) {
+		
+		if(!userAuthService.LoginSessionCheck()) {
+			return "redirect:/login";	
+		}
+		
 		//スレッド作成者とログインしているユーザーが同一かどうか検証
 		if(userAuthService.IsIdMatchWithUser(id)) {
 			model.addAttribute("thread",bbsMapperService.ThreadSelectById(id));
@@ -132,12 +146,31 @@ public class BBSController {
 			attribute.addFlashAttribute("errMessage","タイトルが未入力です");
 			return "redirect:/ThreadEdit/"+form.getId();
 		}
+		
+		if(!userAuthService.LoginSessionCheck()) {
+			return "redirect:/login";	
+		}
+		
+		if(bbsMapperService.ThreadTitleEqualUpdateTitle(form.getId(),form.getTitle())) {
+			attribute.addFlashAttribute("errMessage","タイトルが更新されていません");
+			return "redirect:/ThreadEdit/"+form.getId();
+		}
+		
+		if(bbsMapperService.HasOverlappingThreadTitle(form.getTitle())) {
+			attribute.addFlashAttribute("errMessage","入力したタイトルは既に登録されています");
+			return "redirect:/ThreadEdit/"+form.getId();
+		}
+		
 		bbsMapperService.ThreadUpdate(form);
 		return "redirect:/ThreadList";
 	}
 	
 	@GetMapping("/DeleteThread/{id}")
 	public String DeleteThread(@PathVariable(name="id")Integer id) {
+		
+		if(!userAuthService.LoginSessionCheck()) {
+			return "redirect:/login";	
+		}
 		//スレッド作成者とログインしているユーザーが同一かどうか検証
 		if(userAuthService.IsIdMatchWithUser(id)) {
 			bbsMapperService.DeleteThread(id);			
