@@ -7,19 +7,20 @@
     <title>スレッド作成画面</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<header>
+	<h1>SpringBBS</h1>			
+</header>
 
 <body>
     <div class="login-container">
 		<h2>スレッド作成</h2>
-		<p th:if="${errMessage}" th:text="${errMessage}">エラーメッセージ</p>
+		<div th:if="${errMessage}" class="error-content">
+			<p th:text="${errMessage}">エラーメッセージ</p>
+		</div>
         <form th:action="@{/NewThread}" method="post" th:object="${thraedForm}">
-			<ul th:if="${#fields.hasErrors('*')}">
-				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
-					<p th:text="${thraedForm}"></p>
-			</ul>
-			
-            <input type="text" name="title" placeholder="タイトル">            
-            <button type="submit">Create</button>
+            <input type="text" name="title" placeholder="タイトル" class="ThreadInputForm">
+            <p style="text-align: center;"><button type="submit" class="ThreadFormBtn">Create</button></p>
+            
         </form>
     </div>
 </body>

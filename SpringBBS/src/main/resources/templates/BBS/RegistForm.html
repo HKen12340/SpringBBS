@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザー登録画面</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -13,7 +13,9 @@
 		<h2>ユーザ登録</h2>
         <form th:action="@{/regist}" method="post" th:object="${userForm}">
 			<ul th:if="${#fields.hasErrors('*')}">
+				<div class="error-content">
 				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+				</div>
 			</ul>
 			
             <input type="text" name="username" class="login-input" placeholder="Username">

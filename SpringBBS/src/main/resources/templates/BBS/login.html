@@ -5,22 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログイン画面</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
 <body>
     <div class="login-container">
 		<h2>ログイン</h2>
 		<a th:href="@{/regist}">ユーザ登録</a>
-		<p th:if="${errMessage}" th:text="${errMessage}">エラーメッセージ</p>
-        <form th:action="@{/login}" method="post" th:object="${userForm}">
-			
+        <form th:action="@{/login}" method="post" th:object="${userForm}">			
 			<ul th:if="${#fields.hasErrors('*')}">
-				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+				<div class="error-content">
+					<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+				</div>
 			</ul>
-			<p th:text="${userForm}"></p>
-            <input type="text" name="username" class="login-input" placeholder="Username">
-            <input type="password" name="password" class="login-input" placeholder="Password">
+			<table class="UserFormTable">
+				<tr>
+	           		<td><input type="text" name="username" class="login-input" placeholder="Username"></td>
+	            </tr>
+	            <tr>
+            		<td><input type="password" name="password" class="login-input" placeholder="Password"></td>
+            	</tr>
+            </table>
             <button type="submit" class="login-btn">Login</button>
         </form>
     </div>

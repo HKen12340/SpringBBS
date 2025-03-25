@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スレッド一覧</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="CSS/styles.css">
+   	<link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
 <body>
-    <h1>SpringBBS</h1>
-	<a th:href="@{/logout}">ログアウト</a>
-	<a th:href="@{/NewThread}">スレッド作成</a>
-	<table>
-		<tr th:each="thread : ${threads}">						
-			<td><a th:href="@{/Thread/{id}(id=${thread.id})}"><p th:text="${thread.title}"></p></a></td>
-			<td th:if="${thread.create_userid eq user_id}">
-				<a th:href="@{/ThreadEdit/{thread_id}(thread_id=${thread.id})}">編集</a> 
-				<a th:href="@{/DeleteThread/{thread_id}(thread_id=${thread.id})}">削除</a>
-			</td>
-		</tr>
-	</table>
+	<header>
+		<ul class="header_menu">
+			<li>
+				<h1>SpringBBS</h1>
+			</li>
+			<div>
+				<li>
+					<a th:href="@{/NewThread}" class="header_text">スレッド作成</a>
+				</li>
+				<li>				
+					<a th:href="@{/logout}" class="header_text">ログアウト</a>
+				</li>
+			</div>
+		</ul>
+	</header> 
+		<section th:each="thread : ${threads}">
+			<div class="threads-content" style="text-align: center;">						
+				<a th:href="@{/Thread/{id}(id=${thread.id})}" style="font-size: 30px;line-height: 100px;">
+					<p th:text="${thread.title}"></p></a>
+				<div th:if="${thread.create_userid eq user_id}" >
+					<a th:href="@{/ThreadEdit/{thread_id}(thread_id=${thread.id})}">編集</a> 
+					<a th:href="@{/DeleteThread/{thread_id}(thread_id=${thread.id})}">削除</a>
+				</div>
+			</div>
+		</section>
 </body>
 
 </html>

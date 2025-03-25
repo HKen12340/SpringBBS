@@ -4,27 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
 <body>
-    <h1 th:text="${thread.title}"></h1>	
-	<table>
-		<tr th:each="msg : ${msgs}">
+	<header>
+		<h1>SpringBBS</h1>			
+	</header>
+     
+    <section style="text-align: center;">
+		<h1 th:text="${thread.title}"></h1>
+	    <div th:if="${errMessage}" class="error-content">
+			<p th:text="${errMessage}">エラーメッセージ</p>
+		</div>
+	</div>
+		<form th:action="@{/SendMeg}" method="post" th:object="${messageForm}">		
+			<input type="hidden" name="thread_id" th:value="${thread_id}"/>
+			<input type="hidden" name="user_id" th:value="${user_id}"/>
+			<textarea name="message" cols="70" rows="5"></textarea>
+			<p><input type="submit" value="送信"  class="ThreadFormBtn"/></p>
+		</form>
+	</section>	
+	<div>
+		<section th:each="msg : ${msgs}" class="msg_content">
 			<td th:text="${msg.msg_text}"></td>
 			<td th:text="${msg.bbsuser.name}"></td>
 			<td th:text="${msg.created_at}"></td>			
-		</tr>
-	</table>
-	<p th:if="${errMessage}" th:text="${errMessage}">エラーメッセージ</p>
-	<form th:action="@{/SendMeg}" method="post" th:object="${messageForm}">
-			<ul th:if="${#fields.hasErrors('*')}">
-				<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>			
-			</ul>		
-		<input type="hidden" name="thread_id" th:value="${thread_id}"/>
-		<input type="hidden" name="user_id" th:value="${user_id}"/>
-		<textarea name="message" ></textarea>
-		<input type="submit" value="送信" />
-	</form>
+		</section>
+	</div>
 </body>
 </html>
